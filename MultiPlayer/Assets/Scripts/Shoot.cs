@@ -18,6 +18,8 @@ public class Shoot : NetworkBehaviour
 
     private bool sprint;
     private Ray ray;
+
+    [SerializeField] private int damage = 5;
     // Start is called before the first frame update
     void Awake()
     {
@@ -44,7 +46,8 @@ public class Shoot : NetworkBehaviour
                 if (Physics.Raycast(rayOrigin, cam.transform.forward, out hit))
                 {
                     line.SetPosition(1, hit.point);
-
+                    if (hit.transform.GetComponent<Health>())
+                        hit.transform.GetComponent<Health>().health.Value -= 25;
                 }
                 else
                 {
