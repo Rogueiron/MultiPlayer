@@ -21,15 +21,22 @@ public class Health : NetworkBehaviour
             StartCoroutine(Respawn());
         }
     }
-    public void damage(int damage)
-    {
-        health.Value -= damage;
-    }
     private IEnumerator Respawn()
     {
         yield return new WaitForSeconds(3f);
 
         Transform spawnPoint = GetComponent<Transform>();
         transform.position = spawnPoint.position;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Round")
+        {
+            health.Value -= 100;
+        }
+        else if(other.gameObject.tag == "Splash")
+        {
+            health.Value -= 50;
+        }
     }
 }

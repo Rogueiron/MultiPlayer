@@ -20,6 +20,8 @@ public class Shoot : NetworkBehaviour
     private Ray ray;
 
     [SerializeField] private int damage = 25;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -47,18 +49,21 @@ public class Shoot : NetworkBehaviour
                 {
                     line.SetPosition(1, hit.point);
                     if (hit.transform.GetComponent<Health>())
-                        hit.transform.GetComponent<Health>().damage(damage);
+                    {
+
+                    }
+                        
                 }
                 else
                 {
                     line.SetPosition(1, rayOrigin + (cam.transform.forward * range));
                 }
-                StartCoroutine(Shoot1());
+                StartCoroutine(Shootreturn());
             }
 
         }
     }
-    IEnumerator Shoot1()
+    IEnumerator Shootreturn()
     {
         line.enabled = true;
         yield return new WaitForSeconds(duration);
