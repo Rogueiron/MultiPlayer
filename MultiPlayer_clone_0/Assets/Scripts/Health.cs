@@ -30,13 +30,17 @@ public class Health : NetworkBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Round")
+        if(other.tag == "Round")
         {
-            health.Value -= 100;
-        }
-        else if(other.gameObject.tag == "Splash")
-        {
-            health.Value -= 50;
+            if(other.GetComponent<Round>().splashdamage == true)
+            {
+                health.Value -= 50;
+            }
+            else
+            {
+                health.Value -= 100;
+            }
+            
         }
     }
 }

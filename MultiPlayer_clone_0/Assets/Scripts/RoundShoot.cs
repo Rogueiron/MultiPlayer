@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -7,11 +8,19 @@ using UnityEngine;
 public class RoundShoot : NetworkBehaviour
 {
     [SerializeField] private GameObject roundPrefab;
+    [SerializeField] private GameObject[] Players;
+    [SerializeField] private GameObject thisPlayer;
     [SerializeField] private Transform muzzle;
     [SerializeField] private float Cooldown = 1f;
     // Start is called before the first frame update
     void Start()
     {
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        if (IsOwner)
+        {
+            thisPlayer = Array.FindAll(Players, x => x.GetComponent<NetworkObject>().IsOwner)[0];
+        }
+        muzzle = thisPlayer.transform.GetChild(4).GetChild(0);
 
     }
 
