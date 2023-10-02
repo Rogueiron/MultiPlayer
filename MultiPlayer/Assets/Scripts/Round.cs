@@ -15,14 +15,7 @@ public class Round : NetworkBehaviour
     public bool splashdamage = false;
     private void Start()
     {
-        Players = GameObject.FindGameObjectsWithTag("Player");
-        
-        if (IsOwner)
-        {
-            thisPlayer = Array.FindAll(Players, x => x.GetComponent<NetworkObject>().IsOwner)[0];
-        }
-        muzzle = thisPlayer.transform.GetChild(4).GetChild(0);
-        gameObject.transform.position = thisPlayer.transform.position;
+
     }
     void Update()
     {
@@ -30,7 +23,7 @@ public class Round : NetworkBehaviour
 
         if (speed > 0)
         {
-            gameObject.GetComponent<Rigidbody>().velocity = speed * muzzle.up ;
+            gameObject.GetComponent<Rigidbody>().velocity = speed * gameObject.transform.up;
             StartCoroutine(stop());
 
         }

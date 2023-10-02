@@ -16,9 +16,9 @@ public class RoundShoot : NetworkBehaviour
     void Start()
     {
         Players = GameObject.FindGameObjectsWithTag("Player");
-        if (IsOwner)
+        if(IsOwner)
         {
-            thisPlayer = Array.FindAll(Players, x => x.GetComponent<NetworkObject>().IsOwner)[0];
+            thisPlayer = Array.FindAll(Players, x => x.GetComponent<Movement>().IsOwner)[0];
         }
         muzzle = thisPlayer.transform.GetChild(4).GetChild(0);
 
@@ -42,7 +42,7 @@ public class RoundShoot : NetworkBehaviour
     [ServerRpc]
     private void ShootServerRpc()
     {
-        GameObject roundPrefabnetwork = Instantiate(roundPrefab, muzzle.position, Quaternion.identity);
+        GameObject roundPrefabnetwork = Instantiate(roundPrefab, muzzle.position,roundPrefab.transform.rotation);
         roundPrefabnetwork.GetComponent<NetworkObject>().Spawn();
     }
 }
